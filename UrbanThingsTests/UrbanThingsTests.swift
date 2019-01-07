@@ -10,25 +10,47 @@ import XCTest
 @testable import UrbanThings
 
 class UrbanThingsTests: XCTestCase {
-
+    
+    var sut: ViewController!
+    
     override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = ViewController()
     }
 
     override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
-
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    
+    func testTask1_1() {
+        
+        let ticks = sut.calculateLiftTicks(floors: 5,
+                                maxPeople: 2,
+                                maxWeight: 200,
+                                weightArray: [60, 80, 40],
+                                destinationArray: [2, 3, 2])
+        
+        XCTAssertEqual(ticks, 12)
     }
-
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    
+    func testTask1_2() {
+        
+        let ticks = sut.calculateLiftTicks(floors: 5,
+                                           maxPeople: 3,
+                                           maxWeight: 100,
+                                           weightArray: [60, 80, 40],
+                                           destinationArray: [2, 3])
+        
+        XCTAssertEqual(ticks, 12)
     }
-
+    
+    func testTask1_3() {
+        
+        let ticks = sut.calculateLiftTicks(floors: 5,
+                                           maxPeople: 3,
+                                           maxWeight: 300,
+                                           weightArray: [60, 80, 40, 50],
+                                           destinationArray: [2, 3])
+        
+        XCTAssertEqual(ticks, 12)
+    }
 }
