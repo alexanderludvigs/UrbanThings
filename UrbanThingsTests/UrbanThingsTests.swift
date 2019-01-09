@@ -22,7 +22,6 @@ class UrbanThingsTests: XCTestCase {
     }
     
     func testTask1_1() {
-        
         let ticks = sut.calculateLiftTicks(floors: 5,
                                 maxPeople: 2,
                                 maxWeight: 200,
@@ -33,24 +32,40 @@ class UrbanThingsTests: XCTestCase {
     }
     
     func testTask1_2() {
-        
         let ticks = sut.calculateLiftTicks(floors: 5,
                                            maxPeople: 3,
                                            maxWeight: 100,
                                            weightArray: [60, 80, 40],
-                                           destinationArray: [2, 3])
+                                           destinationArray: [2, 3, 4])
         
-        XCTAssertEqual(ticks, 12)
+        XCTAssertEqual(ticks, 13)
     }
     
-    func testTask1_3() {
-        
+    func testTask1_weightArray_and_destinationArray_not_same_count() {
         let ticks = sut.calculateLiftTicks(floors: 5,
                                            maxPeople: 3,
                                            maxWeight: 300,
                                            weightArray: [60, 80, 40, 50],
                                            destinationArray: [2, 3])
+        // weight array and destination
+        // array do not have the same count
+        XCTAssertEqual(ticks, 0)
+    }
+    
+    func testTask1_max_people_zero() {
+        let ticks = sut.calculateLiftTicks(floors: 5,
+                                           maxPeople: 0,
+                                           maxWeight: 300,
+                                           weightArray: [60, 80, 40, 50],
+                                           destinationArray: [2, 3])
         
-        XCTAssertEqual(ticks, 12)
+        XCTAssertEqual(ticks, 0)
+    }
+    
+    // MARK: - canEnterQueue()
+    
+    func testCanEnterQueue1() {
+        
+        
     }
 }
