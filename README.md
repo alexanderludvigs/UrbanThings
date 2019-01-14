@@ -8,7 +8,8 @@ production environment. If you look at the tests you can see that I wrote new
 tests for each task (each branch), I tried reusing the tests from task one in the second 
 task but since I was in a hurry I just changed them to solve the second task, obviously
 that is not very good since it would be better to add task2 tests without needing to 
-change all the tests from the first one. I skipped gitignore, so unwanted files maybe 
+change all the tests from the first one. Task3 is the only branch that does not have 
+100% test coverage. I skipped gitignore, so unwanted files maybe 
 present. Also the git history is in a minor mess because I added the assignment 
 descritpion from the github page not locally. 
 
