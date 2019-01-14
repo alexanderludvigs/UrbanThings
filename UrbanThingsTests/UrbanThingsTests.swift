@@ -67,7 +67,7 @@ class UrbanThingsTests: XCTestCase {
         XCTAssertEqual(ticks, 46)
     }
     
-    // MARK: - Helpers
+    // MARK: - Helpers Task 2
 
     func testCanEnter_should_enter_second() {
         
@@ -93,10 +93,45 @@ class UrbanThingsTests: XCTestCase {
     }
     
     
-    func testQueueTicks_() {
+    func testQueueTicks() {
         let queueTicks = sut.queueTicks([[40], []], destinations: [[2], []], floors: 3)
         
         XCTAssertEqual(4, queueTicks)
     }
+    
+    // MARK: - Helpers Task 3
+    
+    func testCanEnterExpress_should_enter_express() {
+        let canEnterTuple = sut.canEnterExpress(person: 50, destination: 8, expressLifts: [[40]], lifts: [[]], maxPeople: 2, maxWeight: 100)
+        
+        XCTAssertNotNil(canEnterTuple)
+        XCTAssertTrue(canEnterTuple!.0)
+        // person should enter first lift
+        // since it is only one available
+        XCTAssertEqual(canEnterTuple!.1, 0)
+    }
+    
+    func testCanEnterExpress_should_enter_normal_lift() {
+        let canEnterTuple = sut.canEnterExpress(person: 50, destination: 7, expressLifts: [[40]], lifts: [[]], maxPeople: 2, maxWeight: 100)
+        
+        XCTAssertNotNil(canEnterTuple)
+        XCTAssertFalse(canEnterTuple!.0)
+        // person should enter first lift
+        // since it is only one available
+        XCTAssertEqual(canEnterTuple!.1, 0)
+    }
+    
+    func testCanEnterExpress_odd_person_cant_enter_any_either() {
+        let canEnterTuple = sut.canEnterExpress(person: 50, destination: 7, expressLifts: [[40, 90]], lifts: [[50, 60]], maxPeople: 2, maxWeight: 100)
+
+        XCTAssertNil(canEnterTuple)
+    }
+    
+    func testCanEnterExpress_even_person_cant_enter_any_either() {
+        let canEnterTuple = sut.canEnterExpress(person: 50, destination: 8, expressLifts: [[40, 90]], lifts: [[50, 60]], maxPeople: 2, maxWeight: 100)
+        
+        XCTAssertNil(canEnterTuple)
+    }
+    
     
 }

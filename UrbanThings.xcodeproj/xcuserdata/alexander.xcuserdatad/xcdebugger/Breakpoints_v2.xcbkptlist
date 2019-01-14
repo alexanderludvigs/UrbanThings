@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "UrbanThings/ViewController.swift"
-            timestampString = "569180131.206441"
+            timestampString = "569180868.9448659"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "329"
-            endingLineNumber = "329"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "queueTicks(_:destinations:floors:)"
             landmarkType = "7">
          </BreakpointContent>
