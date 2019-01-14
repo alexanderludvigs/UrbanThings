@@ -53,6 +53,20 @@ class UrbanThingsTests: XCTestCase {
         XCTAssertEqual(ticks, 14)
     }
     
+    // MARK: - Task 3
+    
+    func testTask3_with_20_floors_1_normal_1_express() {
+        let ticks = sut.calculateLiftTicks(floors: 20,
+                                           maxPeople: 2,
+                                           maxWeight: 100,
+                                           weightArray: [60, 70, 80, 10],
+                                           destinationArray: [12, 5, 8, 18],
+                                           numberOfLifts: 1,
+                                           expressLifts: 1)
+        
+        XCTAssertEqual(ticks, 46)
+    }
+    
     // MARK: - Helpers
 
     func testCanEnter_should_enter_second() {
