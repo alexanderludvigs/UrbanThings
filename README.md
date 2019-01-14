@@ -17,6 +17,7 @@ descritpion from the github page not locally.
 - get a mac \
 - download  Xcode 10 \
 - swift language version 4.2
+- git clone repo \
 - open UrbanThings.xcodeproj \
 - set signing in general tab \
 - build and run with command+r \
