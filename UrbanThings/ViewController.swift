@@ -76,6 +76,16 @@ class ViewController: UIViewController {
         return ticks
     }
     
+    // MARK: - Task 3
+    
+    public func calculateLiftTicks(floors: Int, maxPeople: Int, maxWeight: Int, weights: [Int], destinations: [Int], lifts: Int, expressLifts: Int) -> Int {
+        
+        
+        
+        
+        return 0
+    }
+    
     // MARK: - Helpers
     
     public func canEnter(person: Int, lifts: [[Int]], maxPeople: Int, maxWeight: Int) -> Int? {
