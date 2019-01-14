@@ -20,104 +20,69 @@ class UrbanThingsTests: XCTestCase {
     override func tearDown() {
         sut = nil
     }
+
+    // MARK: - Task 2
     
-    func testCalculateLiftTicks_random_data() {
-        let ticks = sut.calculateLiftTicks(floors: 5,
-                                maxPeople: 2,
-                                maxWeight: 200,
-                                weightArray: [60, 80, 40],
-                                destinationArray: [2, 3, 2])
+    func testTask2_with_two_lifts() {
+        let ticks = sut.calculateLiftTicks(floors: 4,
+                                           maxPeople: 2,
+                                           maxWeight: 200,
+                                           weightArray: [60, 70, 80, 90],
+                                           destinationArray: [2, 2, 3, 4],
+                                           numberOfLifts: 2)
+        XCTAssertEqual(ticks, 14)
+    }
+    
+    func testTask2_with_two_lifts_but_only_one_needed() {
+        let ticks = sut.calculateLiftTicks(floors: 4,
+                                           maxPeople: 5,
+                                           maxWeight: 600,
+                                           weightArray: [60, 70, 80, 90],
+                                           destinationArray: [2, 2, 3, 4],
+                                           numberOfLifts: 2)
+        XCTAssertEqual(ticks, 11)
+    }
+    
+    func testTask2_with_one_lift_random_data() {
+        let ticks = sut.calculateLiftTicks(floors: 4,
+                                           maxPeople: 5,
+                                           maxWeight: 200,
+                                           weightArray: [60, 70, 80, 90],
+                                           destinationArray: [2, 2, 3, 4],
+                                           numberOfLifts: 1)
+        XCTAssertEqual(ticks, 14)
+    }
+    
+    // MARK: - Helpers
+
+    func testCanEnter_should_enter_second() {
         
-        XCTAssertEqual(ticks, 12)
-    }
-    
-    func testCalculateLiftTicks_random_data2() {
-        let ticks = sut.calculateLiftTicks(floors: 5,
-                                           maxPeople: 3,
-                                           maxWeight: 100,
-                                           weightArray: [60, 80, 40],
-                                           destinationArray: [2, 3, 4])
+        let lift = sut.canEnter(person: 50, lifts: [[60], []], maxPeople: 2, maxWeight: 100)
         
-        XCTAssertEqual(ticks, 13)
+        XCTAssertNotNil(lift)
+        XCTAssertEqual(1, lift!)
     }
     
-    func testTask1_weightArray_and_destinationArray_not_same_count() {
-        let ticks = sut.calculateLiftTicks(floors: 5,
-                                           maxPeople: 3,
-                                           maxWeight: 300,
-                                           weightArray: [60, 80, 40, 50],
-                                           destinationArray: [2, 3])
-        // weight array and destination
-        // array do not have the same count
-        XCTAssertEqual(ticks, 0)
-    }
-    
-    func testTask1_max_people_zero() {
-        let ticks = sut.calculateLiftTicks(floors: 5,
-                                           maxPeople: 0,
-                                           maxWeight: 300,
-                                           weightArray: [60, 80, 40, 50],
-                                           destinationArray: [2, 3])
+    func testCanEnter_should_enter_first() {
         
-        XCTAssertEqual(ticks, 0)
-    }
-    
-    // MARK: - canEnterQueue(..)
-    
-    func testCanEnterQueue_can_enter() {
-        let canEnter = sut.canEnterQueue(person: 50,
-                                         queue: [40],
-                                         maxPeople: 2,
-                                         maxWeight: 100)
-        XCTAssertTrue(canEnter)
-    }
-    
-    func testCanEnterQueue_max_people_reached() {
-        let canEnter = sut.canEnterQueue(person: 50,
-                                         queue: [40, 50],
-                                         maxPeople: 2,
-                                         maxWeight: 100)
-        XCTAssertFalse(canEnter)
-    }
-    
-    func testCanEnterQueue_max_weight_reached() {
-        let canEnter = sut.canEnterQueue(person: 50,
-                                         queue: [40],
-                                         maxPeople: 2,
-                                         maxWeight: 40)
-        XCTAssertFalse(canEnter)
-    }
-    
-    // MARK: - queueTicks(..)
-    
-    func testQueueTicks_people_2floor() {
-        let queueTicks = sut.queueTicks([40], destinations: [2], floors: 4)
+        let lift = sut.canEnter(person: 50, lifts: [[40], []], maxPeople: 2, maxWeight: 200)
         
-        XCTAssertEqual(queueTicks, 4)
+        XCTAssertNotNil(lift)
+        XCTAssertEqual(0, lift!)
     }
     
-    func testQueueTicks_people_to_3floor() {
-        let queueTicks = sut.queueTicks([60], destinations: [3], floors: 4)
+    func testCanEnter_cant_enter_any_lift() {
         
-        XCTAssertEqual(queueTicks, 6)
+        let lift = sut.canEnter(person: 50, lifts: [[100], [90]], maxPeople: 1, maxWeight: 90)
+        
+        XCTAssertNil(lift)
     }
     
-    func testQueueTicks_people_to_2floor_and_3floor() {
-        let queueTicks = sut.queueTicks([40, 50], destinations: [2, 3], floors: 4)
-        
-        XCTAssertEqual(queueTicks, 7)
-    }
     
-    func testQueueTicks_people_to_3floor_and_4floor() {
-        let queueTicks = sut.queueTicks([40, 50], destinations: [3, 4], floors: 4)
+    func testQueueTicks_() {
+        let queueTicks = sut.queueTicks([[40], []], destinations: [[2], []], floors: 3)
         
-        XCTAssertEqual(queueTicks, 9)
-    }
-    
-    func testQueueTicks_people_and_destinations_different_count() {
-        let queueTicks = sut.queueTicks([40, 50], destinations: [3], floors: 4)
-        
-        XCTAssertEqual(queueTicks, 0)
+        XCTAssertEqual(4, queueTicks)
     }
     
 }
