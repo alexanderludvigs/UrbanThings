@@ -13,7 +13,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        _ = calculateLiftTicks(floors: 5, maxPeople: 2, maxWeight: 200, weightArray: [60, 80, 40], destinationArray: [2, 3, 2])
     }
     
     public func calculateLiftTicks(floors: Int, maxPeople: Int, maxWeight: Int, weightArray: [Int], destinationArray: [Int]) -> Int {
@@ -70,11 +69,13 @@ class ViewController: UIViewController {
     
     public func queueTicks(_ queue: [Int], destinations: [Int], floors: Int) -> Int {
         // minor error handling
-        guard queue.count == destinations.count, !queue.isEmpty else { return 0 }
+        guard queue.count == destinations.count,
+            (!queue.isEmpty && !destinations.isEmpty)
+            else { return 0 }
         
         var ticks = 0
         let startLevel = 1
-        let topLevel = destinations.max() ?? floors
+        let topLevel = destinations.max()
         
         for floor in (1...floors) {
             if floor == startLevel {
