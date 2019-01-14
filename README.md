@@ -13,3 +13,12 @@ change all the tests from the first one. Task3 is the only branch that does not 
 present. Also the git history is in a minor mess because I added the assignment 
 descritpion from the github page not locally. 
 
+#### How to Run:
+- get a mac \
+- download  Xcode 10 \
+- swift language version 4.2
+- open UrbanThings.xcodeproj \
+- set signing in general tab \
+- build and run with command+r \
+- test with command+u \
+
