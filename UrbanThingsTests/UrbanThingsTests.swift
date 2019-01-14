@@ -21,7 +21,7 @@ class UrbanThingsTests: XCTestCase {
         sut = nil
     }
     
-    func testTask1_1() {
+    func testCalculateLiftTicks_random_data() {
         let ticks = sut.calculateLiftTicks(floors: 5,
                                 maxPeople: 2,
                                 maxWeight: 200,
@@ -31,7 +31,7 @@ class UrbanThingsTests: XCTestCase {
         XCTAssertEqual(ticks, 12)
     }
     
-    func testTask1_2() {
+    func testCalculateLiftTicks_random_data2() {
         let ticks = sut.calculateLiftTicks(floors: 5,
                                            maxPeople: 3,
                                            maxWeight: 100,
@@ -62,10 +62,62 @@ class UrbanThingsTests: XCTestCase {
         XCTAssertEqual(ticks, 0)
     }
     
-    // MARK: - canEnterQueue()
+    // MARK: - canEnterQueue(..)
     
-    func testCanEnterQueue1() {
-        
-        
+    func testCanEnterQueue_can_enter() {
+        let canEnter = sut.canEnterQueue(person: 50,
+                                         queue: [40],
+                                         maxPeople: 2,
+                                         maxWeight: 100)
+        XCTAssertTrue(canEnter)
     }
+    
+    func testCanEnterQueue_max_people_reached() {
+        let canEnter = sut.canEnterQueue(person: 50,
+                                         queue: [40, 50],
+                                         maxPeople: 2,
+                                         maxWeight: 100)
+        XCTAssertFalse(canEnter)
+    }
+    
+    func testCanEnterQueue_max_weight_reached() {
+        let canEnter = sut.canEnterQueue(person: 50,
+                                         queue: [40],
+                                         maxPeople: 2,
+                                         maxWeight: 40)
+        XCTAssertFalse(canEnter)
+    }
+    
+    // MARK: - queueTicks(..)
+    
+    func testQueueTicks_people_2floor() {
+        let queueTicks = sut.queueTicks([40], destinations: [2], floors: 4)
+        
+        XCTAssertEqual(queueTicks, 4)
+    }
+    
+    func testQueueTicks_people_to_3floor() {
+        let queueTicks = sut.queueTicks([60], destinations: [3], floors: 4)
+        
+        XCTAssertEqual(queueTicks, 6)
+    }
+    
+    func testQueueTicks_people_to_2floor_and_3floor() {
+        let queueTicks = sut.queueTicks([40, 50], destinations: [2, 3], floors: 4)
+        
+        XCTAssertEqual(queueTicks, 7)
+    }
+    
+    func testQueueTicks_people_to_3floor_and_4floor() {
+        let queueTicks = sut.queueTicks([40, 50], destinations: [3, 4], floors: 4)
+        
+        XCTAssertEqual(queueTicks, 9)
+    }
+    
+    func testQueueTicks_people_and_destinations_different_count() {
+        let queueTicks = sut.queueTicks([40, 50], destinations: [3], floors: 4)
+        
+        XCTAssertEqual(queueTicks, 0)
+    }
+    
 }
